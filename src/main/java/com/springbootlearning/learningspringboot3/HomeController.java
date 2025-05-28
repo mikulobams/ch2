@@ -1,7 +1,5 @@
 package com.springbootlearning.learningspringboot3;
 
-import com.springbootlearning.learningspringboot3.ch2.Video;
-import com.springbootlearning.learningspringboot3.ch2.VideoSearch;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,15 +31,5 @@ public class HomeController {
     @GetMapping("/react")
     public String react() {
         return "react";
-    }
-
-    @PostMapping("/multi-field-search")
-    public String multiFieldSearch( //
-                                    @ModelAttribute VideoSearch search, //
-                                    Model model) {
-        List<VideoEntity> searchResults = //
-                videoService.search(search);
-        model.addAttribute("videos", searchResults);
-        return "index";
     }
 }
