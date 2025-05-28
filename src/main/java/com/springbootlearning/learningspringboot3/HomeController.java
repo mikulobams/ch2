@@ -1,5 +1,7 @@
-package com.springbootlearning.learningspringboot3.ch2;
+package com.springbootlearning.learningspringboot3;
 
+import com.springbootlearning.learningspringboot3.ch2.Video;
+import com.springbootlearning.learningspringboot3.ch2.VideoSearch;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
