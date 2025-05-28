@@ -23,7 +23,7 @@ public class HomeController {
     }
 
     @PostMapping("/new-video")
-    public String newVideo(@ModelAttribute Video newVideo) {
+    public String newVideo(@ModelAttribute NewVideo newVideo) {
         videoService.create(newVideo);
         return "redirect:/";
     }
@@ -31,5 +31,20 @@ public class HomeController {
     @GetMapping("/react")
     public String react() {
         return "react";
+    }
+
+    @PostMapping("/multi-field-search")
+    public String multiFieldSearch(@ModelAttribute VideoSearch search, Model model) {
+        List<VideoEntity> searchResults = videoService.search(search);
+        model.addAttribute("videos", searchResults);
+        return "index";
+    }
+
+    @PostMapping("/universal-search")
+    public String universalSearch(
+            @ModelAttribute UniversalSearch search, Model model) {
+        List<VideoEntity> searchResults = videoService.search(search);
+        model.addAttribute("videos", searchResults);
+        return "index";
     }
 }
