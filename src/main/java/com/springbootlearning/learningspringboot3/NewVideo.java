@@ -1,4 +1,4 @@
 package com.springbootlearning.learningspringboot3;
 
-record Video (String name) {
+record NewVideo(String name, String description) {
 }
