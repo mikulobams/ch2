@@ -28,11 +28,6 @@ public class HomeController {
         return "redirect:/";
     }
 
-    @GetMapping("/react")
-    public String react() {
-        return "react";
-    }
-
     @PostMapping("/multi-field-search")
     public String multiFieldSearch(@ModelAttribute VideoSearch search, Model model) {
         List<VideoEntity> searchResults = videoService.search(search);
