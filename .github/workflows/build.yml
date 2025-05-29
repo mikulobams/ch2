@@ -9,41 +9,46 @@ on:
 jobs:
   checkout:
     runs-on: ubuntu-latest
-    container: openjdk:17-jdk
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-  compile:
+  build:
     runs-on: ubuntu-latest
-    container: openjdk:17-jdk
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-      - name: Install Maven
-        run: apt-get update && apt-get install -y maven
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
       - name: Compile with Maven
         run: mvn clean compile -DskipTests=true
 
   test:
     runs-on: ubuntu-latest
-    container: openjdk:17-jdk
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-      - name: Install Maven
-        run: apt-get update && apt-get install -y maven
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
       - name: Test with Maven
         run: mvn clean test
 
   build_and_package:
     runs-on: ubuntu-latest
-    container: openjdk:17-jdk
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-      - name: Install Maven
-        run: apt-get update && apt-get install -y maven
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
       - name: Package Application
         run: mvn package -DskipTests=true
       - name: Upload Build Artifact
