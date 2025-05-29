@@ -29,16 +29,7 @@ jobs:
   build_and_package:
     runs-on: ubuntu-latest
     container: openjdk:17-jdk
-    with:
-        java-version: '17'
-        distribution: temurin
-        java-package: jdk
-        architecture: x64
-        check-latest: false
-        server-id: github
-        server-username: GITHUB_ACTOR
-        server-password: ${{ secrets.GITHUB_TOKEN }}
-        overwrite-settings: true
+
     steps:
       - name: Package Application
         run: mvn package -DSkipTests=true
