@@ -18,22 +18,34 @@ jobs:
     runs-on: ubuntu-latest
     container: openjdk:17-jdk
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Install Maven
+        run: apt-get update && apt-get install -y maven
       - name: Compile with Maven
-        run: mvn clean compile -DSkipTests=true
+        run: mvn clean compile -DskipTests=true
+
   test:
     runs-on: ubuntu-latest
     container: openjdk:17-jdk
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Install Maven
+        run: apt-get update && apt-get install -y maven
       - name: Test with Maven
         run: mvn clean test
+
   build_and_package:
     runs-on: ubuntu-latest
     container: openjdk:17-jdk
-
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Install Maven
+        run: apt-get update && apt-get install -y maven
       - name: Package Application
-        run: mvn package -DSkipTests=true
-
+        run: mvn package -DskipTests=true
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
