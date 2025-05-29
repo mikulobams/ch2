@@ -7,45 +7,50 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  checkout:
     runs-on: ubuntu-latest
-
     steps:
-      # Step 1: Check out the repository
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # Step 2: Set up the Java environment (using Java 11 in this example)
-      - name: Set Up JDK 17
-        uses: actions/setup-java@v4
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: temurin
-          java-package: jdk
-          architecture: x64
-          check-latest: false
-          server-id: github
-          server-username: GITHUB_ACTOR
-          server-password: ${{ secrets.GITHUB_TOKEN }}
-          overwrite-settings: true
-
-      # Step 3: Compile and Test the Spring Boot application using Maven
+          distribution: 'temurin'
       - name: Compile with Maven
-        run: mvn clean compile -DSkipTests=true
+        run: mvn clean compile -DskipTests=true
 
-      # Step 4: Test the Spring Boot application using Maven
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
       - name: Test with Maven
         run: mvn clean test
 
-      # Debug: List the target directory
-      - name: List Target Directory
-        run: ls -la target
-
-      # (Optional) Step 4: Package the application if needed (e.g., to create a JAR file)
+  build_and_package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
       - name: Package Application
-        run: mvn package -DSkipTests=true
-
-      # (Optional) Step 5: Upload the artifact for later deployment or sharing
+        run: mvn package -DskipTests=true
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
